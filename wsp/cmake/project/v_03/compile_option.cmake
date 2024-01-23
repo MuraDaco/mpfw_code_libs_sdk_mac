@@ -28,7 +28,7 @@ target_compile_options(${EXECUTABLE} PRIVATE
     -c 
     -ffunction-sections 
     -fdata-sections 
-    -ffreestanding 
+    # -ffreestanding 
     -fno-builtin 
     $<$<COMPILE_LANG_AND_ID:CXX,GNU>: -fno-rtti -fno-exceptions -std=gnu++14>        
 

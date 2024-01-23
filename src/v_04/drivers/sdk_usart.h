@@ -22,6 +22,7 @@
 //  *******************************************************************************
 #include <iostream>
 #include <unistd.h>
+#include <thread>
 
 #include <ncurses.h>
 

@@ -262,7 +262,7 @@ int sdk_usart::check_console_service_command(int c_cns)	{
 	// --- 'd' ---
 	if(4 == c_cns) {
 		c_cns = ERR;
-		service_message(SDK_USART_SERVICE_MSG__COMMAND_RECEIVED,        "Received Ctrl-d",			0, 0);
+		service_message(SDK_USART_SERVICE_MSG__COMMAND_RECEIVED,        "Received Ctrl-d",	sdk_process::error_get(), sdk_process::get_pid_enabled());
 		// the shutdown procedure is started so rx must be stopped
 		if(g_callback_protocol_functions.rx_status_get__running()) {
 			service_message(SDK_USART_SERVICE_MSG__RX_STATUS_RUNNING,  	"rx status is RUNNING",		0, 0);

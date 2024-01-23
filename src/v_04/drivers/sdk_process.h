@@ -23,7 +23,7 @@
 #include <atomic>
 #include <cstdint>
 #include <unistd.h> // for getpid()
-
+#include <string>
 
 #include <sys/mman.h> // for shared memory created
 #include <sys/stat.h> // for mode constants
@@ -88,7 +88,7 @@ class sdk_process {
         int gNew;
         int gDel;
         int pid;
-        int gActivePid;
+        volatile int gActivePid;
         uint8_t gActiveProcessNum;
         char buffer[MESSAGE_BUFFER_SIZE];
         uint8_t reader_counter;

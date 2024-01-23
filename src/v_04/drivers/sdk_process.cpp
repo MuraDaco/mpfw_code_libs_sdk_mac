@@ -474,6 +474,7 @@ void sdk_process::start(void)	{
 	}
 }
 
+//void __attribute__((optimize("O0"))) sdk_process::next(void)	{
 void sdk_process::next(void)	{
 	uint8_t l_next_id;
 	// check status of virtual file associate with shared memory
@@ -492,12 +493,17 @@ void sdk_process::next(void)	{
 
 						// check if the next id is right
 						if(PROCESS_MAX_NUMBER == l_next_id) l_next_id = 0;
-						else if	(0 == g_msg_ptr->process_buffer[l_next_id].pid) l_next_id = 0;
+						else {
+							if(0 == g_msg_ptr->process_buffer[l_next_id].pid) l_next_id = 0;
+						}
 
 						// update the active pid
 						g_msg_ptr->gActivePid = g_msg_ptr->process_buffer[l_next_id].pid;
 					}
 				}
+			} else {
+				g_start = true;
+				g_tx_error++;
 			}
 		}
 
@@ -508,10 +514,10 @@ void sdk_process::next(void)	{
 		// 4. (Possible case) - furthermore, this case, in the worst and worst situation, can iterate every context swtich ...
 		// 5. (Consequences)  - ... preventing to use/lock the shared memory from the current thread
 		// 6. (Solution)      - By the following statement you are sure that an entire loop with the condition "shared memroy available" has been performed
-		if(g_pid == g_msg_ptr->gActivePid)	{
-			// it's own turn to modyfy o read the processes list
-			g_start = true;
-		}
+		//if(g_pid == g_msg_ptr->gActivePid)	{
+		//	// it's own turn to modyfy o read the processes list
+		//	g_start = true;
+		//}
 	}
 }
 
