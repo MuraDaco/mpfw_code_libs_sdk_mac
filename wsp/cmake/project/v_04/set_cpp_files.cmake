@@ -20,5 +20,21 @@
 #   marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 #   
 #   *******************************************************************************
+## ******************************************************************
+## __________________________________________________________________
+## SDK PLATFORM LIB CPP FILES Definitions
+trace_execution()
 
-include(${CODE_CMAKE_MODULE_VER_DIR}/set_public_include_src_ver_libs_sdk_${WP_PLATFORM_STR}.cmake              )
+set(CODE_FILES_SDK_PLATFORM_CPP_DRIVERS
+    ${LIBS_SDK_PLATFORM_SRC_DIR}/${SDK_PLATFORM_DRIVERS_DIR}/sdk_process.cpp
+    ${LIBS_SDK_PLATFORM_SRC_DIR}/${SDK_PLATFORM_DRIVERS_DIR}/sdk_usart.cpp
+)
+
+
+
+set(CODE_FILES_SDK_PLATFORM_CPP
+    ${CODE_FILES_SDK_PLATFORM_CPP_DRIVERS}
+)
+
+
+end_include()

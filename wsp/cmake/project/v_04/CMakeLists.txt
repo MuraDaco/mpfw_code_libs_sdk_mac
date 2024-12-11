@@ -20,41 +20,36 @@
 #   marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 #   
 #   *******************************************************************************
-target_compile_options(${EXECUTABLE} PRIVATE
-    -Os 
-    -fno-common 
-    -g 
-    -Wall 
-    -c 
-    -ffunction-sections 
-    -fdata-sections 
-    -ffreestanding 
-    -fno-builtin 
-    $<$<COMPILE_LANG_AND_ID:CXX,GNU>: -fno-rtti -fno-exceptions -std=gnu++14>        
+trace_execution_cmakelists()
 
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mcpu=cortex-m4>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mfpu=fpv4-sp-d16>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mfloat-abi=hard>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mthumb>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -fstack-usage>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -specs=nano.specs>
+# step 1 - 1st level path definition
+set(CODE_DIR    ../../../../../.. )
+include(${CODE_DIR}/${CMAKE_MODULE_VER_RPATH}/set_apps_libs_dirs.cmake )
 
-    -Wfatal-errors
 
+# step 2 - 2nd level path definition - include path definition
+include(include_dependencies.cmake )
+
+# step 3 - set cpp sources files
+include(set_cpp_files.cmake )
+include(${LIBS_SDK_PLATFORM_CMAKE_PUBLIC_DIR}/set_lib_sdk_platform_name.cmake )
+
+add_library(${LIB_SDK_PLATFORM}
+    ${CODE_FILES_SDK_PLATFORM_CPP}
 )
 
-if(WP_PLATFORM_NXP)
+set(EXECUTABLE ${LIB_SDK_PLATFORM} )
 
-    target_compile_definitions(${EXECUTABLE} PRIVATE
-        -DCPU_LPC54608J512ET180 
-        -DCPU_LPC54608J512ET180_cm4 
-        -DFSL_RTOS_FREE_RTOS 
-        -DSDK_OS_FREE_RTOS 
-        -DSERIAL_PORT_TYPE_UART=1 
-        -DSDK_DEBUGCONSOLE=1 
-        -D__MCUXPRESSO 
-        -D__USE_CMSIS 
-        -D__NEWLIB__ 
-    )
+#include(${LIBS_SDK_PLATFORM_CMAKE_PUBLIC_DIR}/toolchain_compile_option.cmake )
+include(public/toolchain_compile_option.cmake )
 
-endif()
+target_include_directories(${LIB_SDK_PLATFORM} PUBLIC 
+    ${CODE_DIR_LIB_SDK_PLATFORM_INCLUDE}
+)
+
+target_compile_definitions(${LIB_SDK_PLATFORM} PRIVATE 
+    SDK_MAC_LIB_VERSION=1.1
+)
+
+message(STATUS "---- end   section of <module_libs_sdk_${WP_PLATFORM_STR}> module ")
+

@@ -22,7 +22,14 @@
 //  *******************************************************************************
 
 #include "sdk_process.h"
+
+
 #include <iostream>
+
+#include <string>
+#include <atomic>
+#include <cstdint>
+#include <unistd.h> // for getpid()
 
 
 #define SHARED_OBJ_NAME         		"/mpfw_sdk_shared_mem"		// "/mpfw_sdk_process"

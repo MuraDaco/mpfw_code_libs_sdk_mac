@@ -26,9 +26,11 @@
 #include <unistd.h> // for getpid()
 
 
-#include <sys/mman.h> // for shared memory created
-#include <sys/stat.h> // for mode constants
-#include <fcntl.h> // for O_* constant
+#include <sys/mman.h>   // for shared memory created
+#include <sys/stat.h>   // for mode constants
+#include <fcntl.h>      // for O_* constant
+
+
 
 // #include <cstddef>
 
@@ -81,7 +83,7 @@ class sdk_process {
     {
         uint16_t pid;
         uint8_t  status;
-        bool     rts;
+        // bool     rts;
     } process_struct_t;
 
     typedef struct _shared_mem_struct
@@ -94,7 +96,6 @@ class sdk_process {
         char buffer[MESSAGE_BUFFER_SIZE];
         uint8_t reader_counter;
     	process_struct_t process_buffer[PROCESS_MAX_NUMBER];
-        // std::atomic_flag gLock;
         std::atomic_flag gLockProcess;
 
         int gProcessWriterPid;

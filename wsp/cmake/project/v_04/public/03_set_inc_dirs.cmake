@@ -20,3 +20,27 @@
 #   marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 #   
 #   *******************************************************************************
+##################################################################################
+## _______________________________________________________________________________
+## RELATIVE PATH Definitions
+trace_execution()
+
+##################################################################################
+## Relative path from CMakeLists.txt project folder                             ##
+##################################################################################
+
+include(${CODE_MAIN_CMAKE_LIBS_SDK_VER_DEF_DIR}/set_class_src_ver.cmake)
+
+set(LIBS_SDK_PLATFORM_SRC_DIR                  ${LIBS_SDK_PLATFORM_DIR}/src/v_${SDK_PLATFORM_LIB_VER}              )
+
+set(SDK_PLATFORM_DRIVERS_DIR                    drivers                         )
+
+
+set(CODE_DIR_LIB_SDK_PLATFORM_INCLUDE
+    ${SDK_PLATFORM_CONF_DIR}
+
+    ${LIBS_SDK_PLATFORM_SRC_DIR}/${SDK_PLATFORM_DRIVERS_DIR}
+    
+)
+
+end_include()

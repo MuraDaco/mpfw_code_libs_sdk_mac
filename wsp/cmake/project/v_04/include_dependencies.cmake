@@ -20,3 +20,8 @@
 #   marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 #   
 #   *******************************************************************************
+trace_execution()
+
+include(${CMAKE_VER_LIBS_SDK_DIR}/set_public_include_src_ver.cmake )
+
+end_include()

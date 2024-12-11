@@ -20,7 +20,6 @@
 //  marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 //  
 //  *******************************************************************************
-#include <thread>
 #include <iostream>
 #include <unistd.h>
 

@@ -20,41 +20,28 @@
 #   marco <d o t> ing <d o t> dau <a t> gmail <d o t> com
 #   
 #   *******************************************************************************
-target_compile_options(${EXECUTABLE} PRIVATE
-    -Os 
-    -fno-common 
-    -g 
-    -Wall 
-    -c 
-    -ffunction-sections 
-    -fdata-sections 
-    -ffreestanding 
-    -fno-builtin 
-    $<$<COMPILE_LANG_AND_ID:CXX,GNU>: -fno-rtti -fno-exceptions -std=gnu++14>        
-
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mcpu=cortex-m4>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mfpu=fpv4-sp-d16>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mfloat-abi=hard>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -mthumb>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -fstack-usage>
-    $<$<BOOL:${WP_PLATFORM_NXP}>: -specs=nano.specs>
-
+add_definitions(
     -Wfatal-errors
-
-)
-
-if(WP_PLATFORM_NXP)
-
-    target_compile_definitions(${EXECUTABLE} PRIVATE
-        -DCPU_LPC54608J512ET180 
-        -DCPU_LPC54608J512ET180_cm4 
-        -DFSL_RTOS_FREE_RTOS 
-        -DSDK_OS_FREE_RTOS 
-        -DSERIAL_PORT_TYPE_UART=1 
-        -DSDK_DEBUGCONSOLE=1 
-        -D__MCUXPRESSO 
-        -D__USE_CMSIS 
-        -D__NEWLIB__ 
+    -std=gnu++14
     )
 
-endif()
+# add_compile_options(-std=gnu++14)
+
+target_link_options(${EXECUTABLE} PRIVATE
+    -O3 
+    -Wall 
+    -Wextra 
+    -pedantic 
+    -lncurses
+)
+
+add_custom_command(TARGET ${EXECUTABLE}
+    POST_BUILD
+    COMMENT "mac - Platform selected: ${WP_PLATFORM_STR} - Config fw2_lib folder: ${FW2_LIB_CONFIG_DIR}"
+)
+
+# Print executable size
+add_custom_command(TARGET ${EXECUTABLE}
+    POST_BUILD
+    COMMAND size ${EXECUTABLE}
+)
